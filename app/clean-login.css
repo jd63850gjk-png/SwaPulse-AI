@@ -52,3 +52,21 @@
   .login-animation { width: 115%; height: 300px; min-height: 260px !important; transform: scale(1.05); }
   .guest-top-button { margin-right: 0; }.login-card-inner { padding: 23px 18px 20px; }.role-card { min-height: 62px; }.role-card strong { font-size: 10px; }
 }
+
+/* Narrow final panel for the standard desktop viewport. */
+.login-card { padding: 28px clamp(24px, 5vw, 72px) 24px; }
+.login-panel-stack { width: min(100%, 520px); }
+.login-card-inner { padding: 25px 28px 20px; border-radius: 22px; }
+.login-card h2 { font-size: clamp(28px, 2.6vw, 38px); }
+.login-subtitle { margin-bottom: 16px; }
+.role-grid { gap: 8px; }.role-card { min-height: 58px; padding: 10px 6px; border-radius: 11px; }.role-card strong { font-size: 12px; white-space: nowrap; }
+.login-divider { margin: 15px 0 9px; }.field { height: 44px; margin-bottom: 7px; }.form-meta { margin-bottom: 10px; }.sign-in-button { padding: 11px; }
+.login-animation { object-fit: contain; }
+
+@media (max-width: 1050px) {
+  .login-panel-stack { width: min(100%, 560px); }
+}
+
+@media (max-width: 600px) {
+  .login-panel-stack { width: 100%; }.role-card strong { font-size: 9px; white-space: normal; }
+}
