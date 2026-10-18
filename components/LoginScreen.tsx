@@ -41,7 +41,7 @@ export default function LoginScreen({ selectedRole, onSelectRole, onGuestLogin }
 
       <section className="login-card" aria-labelledby="login-title">
         <button className="guest-top-button" onClick={onGuestLogin} type="button">
-          <span className="guest-icon">♙</span> Login as a Guest <span className="arrow">→</span>
+          <span className="guest-recommended">RECOMMENDED</span><span className="guest-icon">♙</span> Login as a Guest <span className="arrow">→</span>
         </button>
         <div className="login-card-inner">
           <p className="eyebrow">WELCOME BACK</p>
@@ -57,7 +57,6 @@ export default function LoginScreen({ selectedRole, onSelectRole, onGuestLogin }
                 onClick={() => onSelectRole(item.id)}
                 type="button"
               >
-                {item.id === "admin" && <span className="recommended-tag">RECOMMENDED</span>}
                 <span className="role-icon">{item.icon}</span>
                 <strong>{item.title}</strong>
                 <small>{item.detail}</small>
