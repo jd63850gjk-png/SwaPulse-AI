@@ -70,3 +70,80 @@
 @media (max-width: 600px) {
   .login-panel-stack { width: 100%; }.role-card strong { font-size: 9px; white-space: normal; }
 }
+
+/* Compact desktop correction: keep the guest action above the panel and add
+   the same soft particle treatment behind the login card as the left stage. */
+.login-card {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  padding: 24px clamp(18px, 4vw, 56px) 22px;
+  background: rgba(255, 255, 255, .56);
+}
+
+.login-card::before,
+.login-card::after {
+  position: absolute;
+  z-index: -1;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(40, 120, 237, .48);
+  box-shadow: 130px -120px 0 rgba(20, 168, 154, .42), 250px 115px 0 rgba(255, 158, 67, .45), 380px -45px 0 rgba(125, 96, 229, .38), 470px 180px 0 rgba(239, 81, 122, .35);
+  content: "";
+  pointer-events: none;
+  animation: clean-particles 12s ease-in-out infinite alternate;
+}
+
+.login-card::before { top: 20%; left: 8%; }
+.login-card::after { right: 9%; bottom: 18%; background: rgba(20, 168, 154, .45); animation-delay: -5s; }
+
+.login-panel-stack {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 450px);
+}
+
+.guest-top-button {
+  position: relative !important;
+  z-index: 4;
+  align-self: flex-end;
+  width: auto;
+  min-height: 46px;
+  margin: 0 0 10px auto;
+  padding: 12px 18px;
+  white-space: nowrap;
+}
+
+.login-card-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: 21px 22px 17px;
+  border-radius: 19px;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 20px 54px rgba(65, 111, 169, .13), inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+.login-card h2 { font-size: clamp(27px, 2.35vw, 35px); }
+.login-subtitle { margin: 6px 0 14px; font-size: 12px; }
+.role-grid { gap: 7px; }
+.role-card { min-height: 48px; padding: 8px 5px; border-radius: 10px; }
+.role-card strong { font-size: 11px; line-height: 1.1; }
+.login-divider { margin: 13px 0 8px; }
+.field { height: 42px; margin-bottom: 6px; padding-inline: 12px; }
+.form-meta { margin-bottom: 8px; }
+.sign-in-button { padding: 10px; }
+.login-note { margin-top: 9px; }
+
+@media (max-width: 1050px) {
+  .login-panel-stack { width: min(100%, 450px); }
+}
+
+@media (max-width: 600px) {
+  .login-card { padding: 18px 16px 22px; }
+  .login-panel-stack { width: 100%; }
+  .guest-top-button { align-self: stretch; justify-content: center; margin-inline: 0; }
+  .login-card-inner { padding: 20px 16px 17px; }
+  .role-card { min-height: 46px; }
+}
