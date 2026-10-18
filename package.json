@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "server": "next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "node --test"

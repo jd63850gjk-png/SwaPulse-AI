@@ -28,6 +28,10 @@ On macOS/Linux, use `cp .env.example .env.local` instead of `copy`.
 
 Open http://localhost:3000.
 
+For a production-style local check, run `npm run build` first and then `npm run server` (use `npm run server -- -p 3001` if the dev server is already using port 3000).
+
+Role Lottie files belong in `public/animations/roles/` as `admin.json`, `health-centre-manager.json`, and `health-worker.json`.
+
 ## Environment variables
 
 Set these in `.env.local` locally and in the Vercel project settings. Never commit `.env.local`.
