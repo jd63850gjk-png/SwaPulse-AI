@@ -121,15 +121,16 @@
   width: 100%;
   padding: 21px 22px 17px;
   border-radius: 19px;
-  background: rgba(255, 255, 255, .88);
-  box-shadow: 0 20px 54px rgba(65, 111, 169, .13), inset 0 1px 0 rgba(255,255,255,.95);
+  background: radial-gradient(circle at 100% 0%, rgba(20, 168, 154, .13), transparent 32%), radial-gradient(circle at 0% 100%, rgba(40, 120, 237, .11), transparent 38%), linear-gradient(135deg, rgba(255, 255, 255, .98) 0%, rgba(244, 249, 255, .95) 54%, rgba(233, 250, 246, .93) 100%);
+  box-shadow: 0 20px 54px rgba(65, 111, 169, .13), inset 0 1px 0 rgba(255,255,255,.98);
 }
 
 .login-card h2 { font-size: clamp(27px, 2.35vw, 35px); }
 .login-subtitle { margin: 6px 0 14px; font-size: 12px; }
-.role-grid { gap: 7px; }
-.role-card { min-height: 48px; padding: 8px 5px; border-radius: 10px; }
+.role-grid { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.role-card { flex: 0 0 auto; width: auto; min-height: 42px; padding: 9px 14px; border-radius: 14px; }
 .role-card strong { font-size: 11px; line-height: 1.1; }
+.role-card.selected { border: 1px solid transparent; background: linear-gradient(135deg, rgba(241, 248, 255, .98), rgba(226, 248, 243, .92)) padding-box, linear-gradient(100deg, var(--blue), var(--teal)) border-box; }
 .login-divider { margin: 13px 0 8px; }
 .field { height: 42px; margin-bottom: 6px; padding-inline: 12px; }
 .form-meta { margin-bottom: 8px; }
@@ -145,5 +146,5 @@
   .login-panel-stack { width: 100%; }
   .guest-top-button { align-self: stretch; justify-content: center; margin-inline: 0; }
   .login-card-inner { padding: 20px 16px 17px; }
-  .role-card { min-height: 46px; }
+  .role-card { min-height: 40px; padding-inline: 11px; }
 }
