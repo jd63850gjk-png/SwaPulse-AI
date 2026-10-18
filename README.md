@@ -2,7 +2,7 @@
 
 SwaPulse AI is an AI-powered operations control room for PHCs and CHCs. It turns register photos, voice/text updates, and natural-language commands into evidence-backed operational updates, alerts, and resource-transfer recommendations.
 
-The first screen is a safe guest demo dashboard for the hackathon. It will later connect to Supabase and Gemini without exposing private keys in the browser.
+The first screen is a safe guest demo dashboard for the hackathon. Its server-only Milo route connects to Supabase and Gemini without exposing private keys in the browser.
 
 ## Stack
 
@@ -45,6 +45,27 @@ Set these in `.env.local` locally and in the Vercel project settings. Never comm
 
 Do **not** use or expose the Supabase `service_role` key in the frontend. The Gemini key must not start with `NEXT_PUBLIC_`.
 
+## Backend API
+
+The server-only `POST /api/milo` route accepts either a text request or one explicit allowlisted action. Every request gets a cookie-backed anonymous Supabase session when needed and calls the existing `public.join_demo_facility` RPC before reading or changing demo data.
+
+```json
+{
+  "message": "Which supplies are running low?"
+}
+```
+
+An explicit action can be sent when the client already has validated fields:
+
+```json
+{
+  "action": "update_bed_status",
+  "args": { "bed_id": "bed-1", "status": "available" }
+}
+```
+
+The only executable actions are `get_dashboard_summary`, `list_low_stock_items`, `add_inventory_item`, `update_inventory_stock`, `record_patient_footfall`, `update_bed_status`, `record_staff_attendance`, `update_test_availability`, `create_alert`, and `create_task`. Unknown actions, fields, and invalid argument types return structured JSON errors. Raw SQL, schema changes, deletes, arbitrary table names, and service-role access are not exposed. Milo accepts text and validated JPEG, PNG, or WebP evidence images; image content is interpreted into at most one allowlisted action before Supabase writes.
+
 ## Checks
 
 ```bash
@@ -63,7 +84,7 @@ npm run build
 4. Add the variables above under **Settings → Environment Variables** for Preview and Production.
 5. Deploy and open the generated `vercel.app` URL.
 
-The Gemini key should only be used by a server route or server action in a later step. Use Supabase Row Level Security before connecting any real database data.
+The Gemini key is used only by the server route. Keep Supabase Row Level Security enabled for any non-demo data.
 
 ## Product flow
 
