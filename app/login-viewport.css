@@ -1,0 +1,43 @@
+/* Final login composition: desktop fits one viewport; mobile remains naturally scrollable. */
+.login-shell { height: 100svh; min-height: 680px; }
+.login-story, .login-card { height: 100%; min-height: 0; }
+.login-story { padding: 28px clamp(32px, 6vw, 110px) 22px; }
+.login-story::before { position: absolute; top: 35%; left: 12%; width: 5px; height: 5px; border-radius: 50%; background: rgba(40, 120, 237, .45); box-shadow: 120px -110px 0 rgba(20, 168, 154, .38), 250px 75px 0 rgba(40, 120, 237, .25), 390px -30px 0 rgba(20, 168, 154, .32), 500px 105px 0 rgba(40, 120, 237, .24); content: ""; animation: particle-float 10s ease-in-out infinite; pointer-events: none; }
+.story-copy { margin-top: clamp(28px, 6vh, 74px); }
+.story-copy h1 { font-size: clamp(40px, 4.5vw, 70px); }
+.story-copy > p:last-child { margin-top: 16px; font-size: 15px; line-height: 1.5; }
+.story-visual { height: clamp(270px, 38vh, 390px); min-height: 0; margin: auto auto 0; }
+.login-animation { width: min(500px, 92%); height: 100%; min-height: 300px !important; }
+.selected-role-label { position: absolute; z-index: 4; right: 50%; bottom: 8px; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255, 255, 255, .9); border-radius: 999px; background: rgba(255, 255, 255, .86); box-shadow: 0 12px 28px rgba(38, 94, 150, .12); color: var(--ink-soft); font-size: 11px; font-weight: 700; padding: 9px 13px; transform: translateX(50%); backdrop-filter: blur(12px); }
+.selection-burst { position: absolute; z-index: 0; width: 260px; height: 260px; border: 1px solid rgba(40, 120, 237, .25); border-radius: 50%; box-shadow: 0 0 0 18px rgba(40, 120, 237, .05), 0 0 0 38px rgba(20, 168, 154, .035); animation: selection-burst .8s ease-out both; pointer-events: none; }
+.login-card { padding: 70px clamp(26px, 6vw, 100px) 24px; overflow: hidden; }
+.login-card-inner { width: min(100%, 600px); max-height: calc(100% - 12px); overflow: visible; border: 1px solid rgba(218, 229, 242, .95); border-radius: 28px; background: rgba(255, 255, 255, .86); box-shadow: 0 26px 70px rgba(50, 96, 151, .12), inset 0 1px 0 rgba(255, 255, 255, .9); padding: 25px 30px 22px; backdrop-filter: blur(18px); }
+.login-card-inner::before { display: block; width: 54px; height: 4px; margin: -25px auto 21px; border-radius: 99px; background: linear-gradient(90deg, var(--blue), var(--teal)); content: ""; opacity: .85; }
+.login-card h2 { font-size: clamp(31px, 3vw, 44px); }.login-subtitle { margin: 8px 0 18px; font-size: 13px; }
+.guest-top-button { top: 27px; }
+.role-grid { gap: 9px; }.role-card { min-height: 130px; padding: 10px 7px; }.role-icon { width: 37px; height: 37px; font-size: 24px; }.role-card strong { font-size: 11px; }.role-card small { font-size: 9px; }
+.login-divider { margin: 18px 0 12px; }.field { height: 49px; margin-bottom: 8px; }.form-meta { margin: 3px 2px 13px; }.sign-in-button { padding: 13px; }.login-note { margin-top: 9px; }
+.role-card:active { transform: scale(.97); }.role-card.selected { animation: role-selected .55s ease both; }
+
+@keyframes particle-float { 0%, 100% { transform: translate3d(0, 0, 0); opacity: .45; } 50% { transform: translate3d(12px, -18px, 0); opacity: .9; } }
+@keyframes selection-burst { 0% { transform: scale(.6); opacity: 0; } 35% { opacity: 1; } 100% { transform: scale(1.15); opacity: 0; } }
+@keyframes role-selected { 0% { transform: scale(.96); } 60% { transform: scale(1.015); } 100% { transform: scale(1); } }
+
+@media (max-width: 1050px) {
+  .login-shell { height: auto; min-height: 100svh; overflow: visible; }
+  .login-story, .login-card { height: auto; min-height: 0; }
+  .login-story { padding-bottom: 0; }
+  .story-visual { height: 310px; }
+  .login-card { padding-top: 20px; }
+  .login-card-inner { max-height: none; }
+}
+
+@media (max-width: 600px) {
+  .login-story { padding: 24px 20px 0; }
+  .story-visual { height: 245px; }
+  .login-animation { min-height: 225px !important; }
+  .selected-role-label { bottom: 0; }
+  .login-card-inner { padding: 23px 18px 20px; border-radius: 22px; }
+  .role-card { min-height: 118px; }
+  .guest-top-button { top: 18px; }
+}

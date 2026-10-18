@@ -23,6 +23,8 @@ test("the product name and problem focus are present in the landing page", async
   assert.match(login, /RECOMMENDED/);
   assert.match(login, /Health Centre Manager/);
   assert.match(login, /Health Worker/);
+  assert.match(login, /selection-burst/);
+  assert.doesNotMatch(login, /role-animation/);
   assert.match(dashboard, /AI ACTION LOG/);
   assert.match(dashboard, /runDemoAction/);
 });

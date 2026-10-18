@@ -7,13 +7,15 @@ type LoginScreenProps = {
   onGuestLogin: () => void;
 };
 
-const roles: Array<{ id: DemoRole; title: string; detail: string; animation: string }> = [
-  { id: "admin", title: "Admin", detail: "District Command Center", animation: "admin.json" },
-  { id: "manager", title: "Health Centre Manager", detail: "Manage one PHC or CHC", animation: "health-centre-manager.json" },
-  { id: "worker", title: "Health Worker", detail: "Frontline operator", animation: "health-worker.json" },
+const roles: Array<{ id: DemoRole; title: string; detail: string; icon: string; animation: string }> = [
+  { id: "admin", title: "Admin", detail: "District Command Center", icon: "⌁", animation: "admin.json" },
+  { id: "manager", title: "Health Centre Manager", detail: "Manage one PHC or CHC", icon: "▦", animation: "health-centre-manager.json" },
+  { id: "worker", title: "Health Worker", detail: "Frontline operator", icon: "♧", animation: "health-worker.json" },
 ];
 
 export default function LoginScreen({ selectedRole, onSelectRole, onGuestLogin }: LoginScreenProps) {
+  const selected = roles.find((role) => role.id === selectedRole) ?? roles[0];
+
   return (
     <main className="login-shell">
       <div className="login-glow login-glow-one" />
@@ -32,7 +34,9 @@ export default function LoginScreen({ selectedRole, onSelectRole, onGuestLogin }
           <div className="visual-grid" />
           <div className="visual-ring visual-ring-one" />
           <div className="visual-ring visual-ring-two" />
-          <LottieVisual className="login-animation" src="/animations/roles/health-centre-manager.json" ariaLabel="Animated health centre" />
+          <div className="selection-burst" key={selectedRole} />
+          <LottieVisual key={selectedRole} className="login-animation" src={`/animations/roles/${selected.animation}`} ariaLabel={`${selected.title} animation`} />
+          <div className="selected-role-label"><span className="chip-dot" />{selected.title} workspace</div>
           <div className="visual-chip visual-chip-top"><span className="chip-dot" />12 centres synced</div>
           <div className="visual-chip visual-chip-bottom"><span className="chip-spark">✦</span> AI action ready</div>
         </div>
@@ -57,7 +61,7 @@ export default function LoginScreen({ selectedRole, onSelectRole, onGuestLogin }
                 onClick={() => onSelectRole(item.id)}
                 type="button"
               >
-                <LottieVisual className="role-animation" src={`/animations/roles/${item.animation}`} ariaLabel={`${item.title} animation`} />
+                <span className="role-icon">{item.icon}</span>
                 <strong>{item.title}</strong>
                 <small>{item.detail}</small>
               </button>
