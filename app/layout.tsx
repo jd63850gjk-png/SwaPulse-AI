@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Swasthya Sutradhar",
+  title: "SwaPulse AI",
   description: "Evidence-to-action operations for PHCs and CHCs.",
 };
 

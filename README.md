@@ -1,6 +1,6 @@
-# Swasthya Sutradhar
+# SwaPulse AI
 
-Swasthya Sutradhar is an AI-powered operations control room for PHCs and CHCs. It turns register photos, voice/text updates, and natural-language commands into evidence-backed operational updates, alerts, and resource-transfer recommendations.
+SwaPulse AI is an AI-powered operations control room for PHCs and CHCs. It turns register photos, voice/text updates, and natural-language commands into evidence-backed operational updates, alerts, and resource-transfer recommendations.
 
 The first screen is a safe guest demo dashboard for the hackathon. It will later connect to Supabase and Gemini without exposing private keys in the browser.
 

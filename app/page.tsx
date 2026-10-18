@@ -11,7 +11,7 @@ export default function Home() {
         <div className="brand">
           <span className="brand-mark">+</span>
           <span>
-            <strong>Swasthya Sutradhar</strong>
+            <strong>SwaPulse AI</strong>
             <small>AI health operations control room</small>
           </span>
         </div>

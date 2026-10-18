@@ -14,7 +14,7 @@ test("the project keeps required service placeholders out of source code", async
 test("the product name and problem focus are present in the landing page", async () => {
   const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 
-  assert.match(page, /Swasthya Sutradhar/);
+  assert.match(page, /SwaPulse AI/);
   assert.match(page, /AI ACTION LOG/);
   assert.match(page, /stock/i);
 });
