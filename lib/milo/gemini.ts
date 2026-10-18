@@ -11,7 +11,7 @@ import { actionDefinitionsForGemini, ALLOWED_ACTIONS, type ActionArguments, type
 import { MiloError } from "@/lib/milo/errors";
 import { getServerEnv } from "@/lib/server/env";
 
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_MODEL = "gemini-2.5-flash";
 
 export type GeminiImageInput = {
   mimeType: "image/jpeg" | "image/png" | "image/webp";
@@ -103,6 +103,28 @@ const SAFE_TOOL_DECLARATIONS: FunctionDeclaration[] = [
 
 const SAFE_TOOL_NAMES = new Set<string>(ALLOWED_ACTIONS);
 
+type TextInterpretation =
+  | { kind: "action"; action: ActionName; arguments: ActionArguments }
+  | { kind: "answer"; text: string };
+
+function offlineInterpretation(message: string): TextInterpretation {
+  const normalized = message.toLowerCase();
+
+  if (/(low stock|running low|shortage|stock.?out|supplies)/.test(normalized)) {
+    return { kind: "action", action: "list_low_stock_items", arguments: {} };
+  }
+  if (/(dashboard|summary|overview|facility status|how are we|what.?s happening|status)/.test(normalized)) {
+    return { kind: "action", action: "get_dashboard_summary", arguments: {} };
+  }
+  if (/(bed|capacity|ward|staff|attendance|doctor|nurse|team|test|diagnostic|malaria|cbc)/.test(normalized)) {
+    return { kind: "action", action: "get_dashboard_summary", arguments: {} };
+  }
+  return {
+    kind: "answer",
+    text: "I’m Milo, SwaPulse AI’s facility operations assistant. I can read the live dashboard, find low-stock supplies, update inventory, record footfall, update beds, track staff attendance and test availability, and create alerts or tasks. Ask me about this facility or give me an explicit update.",
+  };
+}
+
 export async function interpretTextRequest(
   message: string,
   image?: GeminiImageInput,
@@ -114,13 +136,9 @@ export async function interpretTextRequest(
   kind: "answer";
   text: string;
 }> {
-  const { geminiApiKey } = getServerEnv({ requireGemini: true });
+  const { geminiApiKey } = getServerEnv();
 
-  if (!geminiApiKey) {
-    throw new MiloError("CONFIGURATION_ERROR", 503, "Text command processing is not configured.", {
-      variable: "GEMINI_API_KEY",
-    });
-  }
+  if (!geminiApiKey) return offlineInterpretation(message);
 
   const model = new GoogleGenerativeAI(geminiApiKey).getGenerativeModel({
     model: GEMINI_MODEL,
@@ -146,7 +164,7 @@ export async function interpretTextRequest(
         : message,
     );
   } catch {
-    throw new MiloError("GEMINI_REQUEST_FAILED", 502, "Text command processing failed.");
+    return offlineInterpretation(message);
   }
 
   let calls;
